@@ -18,6 +18,75 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="https://js.arcgis.com/4.6/esri/css/main.css">
+
+  <script src="https://js.arcgis.com/4.6/"></script>
+
+  <script>
+    require([
+      "esri/views/MapView",
+      "esri/WebMap",
+      "esri/layers/FeatureLayer",
+      "esri/PopupTemplate",
+      "dojo/domReady!"
+    ], function(
+      MapView, WebMap, FeatureLayer, PopupTemplate
+    ) {
+
+      /************************************************************
+       * Add WaterSupervisor Layer
+       ************************************************************/
+
+	    var template = new PopupTemplate({
+	     title: "{Name}",
+	  	});
+	    var featureLayer = new FeatureLayer({
+	    	"url": "https://services8.arcgis.com/yiCKzp9GvAqqCWeI/arcgis/rest/services/Supervisors/FeatureServer",
+	    	popupTemplate: template
+	    });
+
+	    featureLayer.popupTemplate.content = [
+	    {
+		  type: "text",
+		  text: "Water values"
+		},
+		{
+	     	type: "media",
+	     	mediaInfos:[{ //define the columnchart
+            type:"column-chart",
+            value:{
+              fields:["ph", "salinity", "turbidity", "depth", "blueGreenAlgae", "nitrate", "TTS", "TDS"]
+            }
+          }]
+	     }];
+
+
+      /************************************************************
+       * Creates a new WebMap instance. A WebMap must reference
+       * a PortalItem ID that represents a WebMap saved to
+       * arcgis.com or an on-premise portal.
+       *
+       * To load a WebMap from an on-premise portal, set the portal
+       * url with esriConfig.portalUrl.
+       ************************************************************/
+      var webmap = new WebMap({
+        portalItem: { // autocasts as new PortalItem()
+          id: "cd8bafd6f3ed420d855bd117e0bcb7ac"
+        },
+        layers: [featureLayer]
+      });
+
+      /************************************************************
+       * Set the WebMap instance to the map property in a MapView.
+       ************************************************************/
+      var view = new MapView({
+        map: webmap,
+        container: "viewDiv"
+      });
+
+
+    });
+  </script>
 </head>
 <body background="background.jpg">
 <ul>

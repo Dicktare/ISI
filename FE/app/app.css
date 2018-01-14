@@ -11,6 +11,13 @@ li {
     float: left;
 }
 
+.comment_select {
+  color:black;
+}
+
+.coment_input {
+  color:black;
+}
 li a {
     display: block;
     color: white;
@@ -27,6 +34,16 @@ li a:hover {
 body {
     color: #7CFC00;
 }
+
+#viewDiv {
+     align:center;
+     padding-top: 25px;
+     padding-left: 25px;
+     margin-left: 250px; ;
+     margin: 0;
+     height: 800px;
+     width: 800px;
+   }
 
 form {
     align:center;
@@ -52,8 +69,28 @@ input[type=text], input[type=password] {
     width: 20%;
 }
 
+.submit_text{
+  color:black;
+}
+.add_comment_btn{
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 10%;
+}
+
 .login_btn:hover {
     opacity: 0.8;
+}
+
+.comemnt_container{
+  margin-left: 15px;
+}
+.add_comment_btn:hover {
+  opacity: 0.8;
 }
 
 .imgcontainer {

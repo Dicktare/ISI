@@ -1,5 +1,18 @@
-<p>This is the partial for view 2.</p>
-<p>
-  Showing of 'interpolate' filter:
-  {{ 'Current version is v%VERSION%.' | interpolate }}
-</p>
+<div class="comemnt_container">
+  <h2>Report a new event:</h2>
+  <div>
+   <h3>Location               Email</h3>
+   <select ng-model="locSelected" class="comment_select">
+     <option ng-repeat="l in locations">{{l.name}}</option>
+   </select>
+   <input ng-model="email" class="coment_input"></input>
+  </div>
+  <div>
+    <h3>Add comment here:</h3>
+    <textarea class="submit_text" rows="4" cols="50" ng-model="comment">
+    </textarea
+  </div>
+  <div>
+    <button ng-click="add_comment()" class="add_comment_btn" type="submit">Submit Comment</button>
+  </div>
+</div>

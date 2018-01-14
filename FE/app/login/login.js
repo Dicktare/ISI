@@ -9,7 +9,9 @@ angular.module('myApp.login', ['ngRoute'])
   });
 }])
 
-.controller('loginCtrl', function($scope, $http) {
+.controller('loginCtrl', function($scope, $http, $location) {
+
+  console.log($location.path());
 
   $scope.login = function() {
     var loginData = {
@@ -25,6 +27,8 @@ angular.module('myApp.login', ['ngRoute'])
     }).then(function successCallback(response) {
           console.log(response);
           console.log('good login');
+          if(response.status === 200)
+            $location.path('/view1')
       }, function errorCallback(response) {
       });
   }//login

@@ -63,5 +63,26 @@ MongoClient.connect(url, function(err, db) {
         });
      
   });
+
+  app.get('/supervisors/get',function(req, res) {
+
+      dbo.collection('Supervisors').find({}).toArray(function(err, result) {
+        if (err) throw err;
+          res.status(200).json(result);
+      });
+   
+  });
+
+  app.get('/locations/get',function(req, res) {
+    
+          dbo.collection('Supervisors').find({}).toArray(function(err, result) {
+            if (err) throw err;
+            var array_temp = [];
+            result.reduce(
+              (accumulator, currentVal, index, array)=> array_temp.push(currentVal['name']),[]);
+              res.status(200).json(array_temp);
+          });
+       
+  });
   app.listen(PORT);
 });

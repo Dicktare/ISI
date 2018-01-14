@@ -11,7 +11,9 @@ var url = "mongodb://watersupervisor:proiect_2018@personaluse-shard-00-00-1j" +
 "&replicaSet=PersonalUse-shard-0&authSource=admin";
 
 MongoClient.connect(url, function(err, db) {
-  if (err) throw err;
+
+  const dbo = db.db("WaterSupervisor");
+
   app.use(bodyParser.json());
   app.use(logger('dev'));
   app.use(function(req, res, next) {
@@ -49,20 +51,17 @@ MongoClient.connect(url, function(err, db) {
       var username = req.body.username;
       var passwd = req.body.password;
 
-      // mail sending example
-      // common.send_notification('dracojan94@gmail.com', 'test notification', 'Hello world!');
+      
 
-      if(username == "dan" && passwd == "1234"){
-        res.writeHead(200, {'Content-Type' : 'application/json'});
-        res.end(JSON.stringify(req.body));
-      }
-
-      res.status(200).send("Ok");
+        dbo.collection('Users').find({"username": username, "password": passwd}).toArray(function(err, result) {
+          if (err) throw err;
+          if(result.length !== 0) {
+            res.status(200).json(result);
+          } else {
+            res.status(401).send("Unauthorized ");
+          }
+        });
+     
   });
   app.listen(PORT);
-
-
-
-  db.close();
-
 });

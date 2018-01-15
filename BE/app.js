@@ -56,30 +56,33 @@ MongoClient.connect(url, function(err, db) {
 
   });
 
-  app.get('/comment/add',function(req, res) {
-    console.log(req.body);
+  app.post('/comment_add',function(req, res) {
+    //console.log(req);
+    
     dbo.collection('Users').find({'email': req.body.email}).toArray(function(err, result) {
       if (err) throw err;
       
       if (result.length !== 0) {
-        if(result[0].status === 'Administrator' && result[0].status === 'Volunteer') {
+        if(result[0].status === 'Administrator' || result[0].status === 'Volunteer') {
           // adauga comentariu
-          var myquery = { address: "Valley 345" };
 
-          dbo.collection('Superviors').find({'name': req.body.location}).toArray(function(err, res) {
+
+          dbo.collection('Supervisors').find({'name': req.body.location}).toArray(function(err, res) {
             if (err) throw err;
-            var myquery = { name: req.body.location };
-            var array_incident = res.incidents;
+            
+            
+            var array_incident = res[0].incidents.slice();
             
             var incident = {
               id: array_incident.length + 1,
-              reporter: result.firstName,
+              reporter: result[0].firstName,
               date: dateformat(new Date(), "dd-mm-yyyy, HH:MM:ss.l"),
               description: req.body.comment
             }
-            array_incident.push()
-
+            array_incident.push(incident);
+            var myquery = { name: req.body.location };
             var newvalues = {$set: {incidents: array_incident} };
+            console.log(array_incident);
 
             dbo.collection("Supervisors").updateOne(myquery, newvalues, function(err, res) {
               if (err) throw err;
@@ -89,10 +92,10 @@ MongoClient.connect(url, function(err, db) {
           });
           
         } else { // user exista dar nu are drept
-          res.status(401).send('Unauthorized');
+          res.status(401).send('Unauthorized, no rights');
         }
       } else {
-        res.status(401).send('Unauthorized');
+        res.status(401).send('Unauthorized, no such user');
       }
       
     });

@@ -42,7 +42,7 @@ angular.module('myApp.view1', ['ngRoute'])
     };
     $http({
       method: 'POST',
-      url: 'http://localhost:8080/comment/add/',
+      url: 'http://localhost:8080/comment_add/',
       data:dataSend
     }).then(function successCallback(response) {
           console.log(response);

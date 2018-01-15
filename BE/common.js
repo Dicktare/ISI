@@ -21,8 +21,8 @@ module.exports = {
                 }
                 else
                 {
-                    console.log(res);
-                    console.log('Message sent successfully!');
+                    // console.log(res);
+                    // console.log('Message sent successfully!');
                 }
             });
     }

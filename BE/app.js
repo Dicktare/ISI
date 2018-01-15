@@ -37,8 +37,22 @@ MongoClient.connect(url, function(err, db) {
     res.send('Server started');
   });
 
-  app.post('/notify_users/', function(req,res){
-    console.log(req.body.name);
+  app.post('/notify_users', function(req,res){
+    console.log(req.body);
+    dbo.collection('Users').find({}).toArray(function(err, result) {
+      if (err) throw err;
+      var array_temp = [];
+      result.reduce((accumulator, currentVal, index, array)=> array_temp.push(currentVal['email']),[]);
+      
+      array_temp.forEach(email => {
+        common.send_notification(email, 'New Warning', 'New warning at location: ' + req.body.location +
+        '\n ' + req.body.comment);
+      });
+
+      res.status(200).send('OK');
+    });
+
+
   });
 
   app.post('/login',function(req, res) {

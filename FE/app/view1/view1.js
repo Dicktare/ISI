@@ -35,6 +35,7 @@ angular.module('myApp.view1', ['ngRoute'])
     console.log($scope.locSelected);
     console.log($scope.comment);
     console.log($scope.email);
+    $scope.notify_users(); 
   }
 
   $scope.get_data = function() {
@@ -48,10 +49,15 @@ angular.module('myApp.view1', ['ngRoute'])
   }//get_data
 
   $scope.notify_users = function() {
+    var dataSend = {
+      location:$scope.locSelected,
+      comment:$scope.comment,
+      email:$scope.email
+    };
     $http({
       method: 'POST',
       url: 'http://localhost:8080/notify_users/',
-      data:{name:"rahan"}
+      data:dataSend
     }).then(function successCallback(response) {
           console.log(response);
         // this callback will be called asynchronously

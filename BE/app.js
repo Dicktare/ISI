@@ -57,7 +57,7 @@ MongoClient.connect(url, function(err, db) {
   });
 
   app.get('/comment/add',function(req, res) {
-
+    console.log(req.body);
     dbo.collection('Users').find({'email': req.body.email}).toArray(function(err, result) {
       if (err) throw err;
       

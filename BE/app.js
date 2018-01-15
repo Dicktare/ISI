@@ -108,6 +108,9 @@ MongoClient.connect(url, function(err, db) {
         dbo.collection('Users').find({"username": username, "password": passwd}).toArray(function(err, result) {
           if (err) throw err;
           if(result.length !== 0) {
+            result[0].password = null;
+            delete result[0].password;
+            console.log(result);
             res.status(200).json(result);
           } else {
             res.status(401).send("Unauthorized ");

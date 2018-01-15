@@ -35,6 +35,23 @@ angular.module('myApp.view1', ['ngRoute'])
     console.log($scope.locSelected);
     console.log($scope.comment);
     console.log($scope.email);
+    var dataSend = {
+      location:$scope.locSelected,
+      comment:$scope.comment,
+      email:$scope.email
+    };
+    $http({
+      method: 'POST',
+      url: 'http://localhost:8080/comment/add/',
+      data:dataSend
+    }).then(function successCallback(response) {
+          console.log(response);
+        // this callback will be called asynchronously
+        // when the response is available
+      }, function errorCallback(response) {
+        // called asynchronously if an error occurs
+        // or server returns response with an error status.
+    });
     $scope.notify_users(); 
   }
 

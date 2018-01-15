@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var logger = require('morgan');
 var common = require('./common');
+var dateformat = require('dateformat');
 let PORT = 8080;
 var bodyParser = require('body-parser')
 var MongoClient = require('mongodb').MongoClient;
@@ -38,7 +39,7 @@ MongoClient.connect(url, function(err, db) {
   });
 
   app.post('/notify_users', function(req,res){
-    console.log(req.body);
+
     dbo.collection('Users').find({}).toArray(function(err, result) {
       if (err) throw err;
       var array_temp = [];
@@ -53,6 +54,48 @@ MongoClient.connect(url, function(err, db) {
     });
 
 
+  });
+
+  app.get('/comment/add',function(req, res) {
+
+    dbo.collection('Users').find({'email': req.body.email}).toArray(function(err, result) {
+      if (err) throw err;
+      
+      if (result.length !== 0) {
+        if(result[0].status === 'Administrator' && result[0].status === 'Volunteer') {
+          // adauga comentariu
+          var myquery = { address: "Valley 345" };
+
+          dbo.collection('Superviors').find({'name': req.body.location}).toArray(function(err, res) {
+            if (err) throw err;
+            var myquery = { name: req.body.location };
+            var array_incident = res.incidents;
+            
+            var incident = {
+              id: array_incident.length + 1,
+              reporter: result.firstName,
+              date: dateformat(new Date(), "dd-mm-yyyy, HH:MM:ss.l"),
+              description: req.body.comment
+            }
+            array_incident.push()
+
+            var newvalues = {$set: {incidents: array_incident} };
+
+            dbo.collection("Supervisors").updateOne(myquery, newvalues, function(err, res) {
+              if (err) throw err;
+              console.log("1 document updated");
+              
+            });
+          });
+          
+        } else { // user exista dar nu are drept
+          res.status(401).send('Unauthorized');
+        }
+      } else {
+        res.status(401).send('Unauthorized');
+      }
+      
+    });
   });
 
   app.post('/login',function(req, res) {

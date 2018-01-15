@@ -5,6 +5,7 @@
   "main": "app.js",
   "dependencies": {
     "body-parser": "^1.18.2",
+    "dateformat": "^3.0.2",
     "express": "^4.16.2",
     "gmail-send": "^1.2.13",
     "mongodb": "^3.0.1",

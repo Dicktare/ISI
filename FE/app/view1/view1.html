@@ -1,1 +1,25 @@
- <div id="viewDiv"></div>
+<div ng-click="refresh()">
+  <span class="glyphicon glyphicon-repeat"></span>
+</div>
+<li>
+  <div id="viewDiv"></div>
+</li>
+<li>
+  <div class="comemnt_container">
+    <h2>Report a new event:</h2>
+    <div>
+     <select ng-model="locSelected" class="comment_select">
+       <option ng-repeat="l in locations">{{l}}</option>
+     </select>
+     <input ng-model="email" placeholder="Enter email here"class="coment_input"></input>
+    </div>
+    <div>
+      <h3>Add comment here:</h3>
+      <textarea class="submit_text" rows="4" cols="50" ng-model="comment">
+      </textarea
+    </div>
+    <div>
+      <button ng-click="add_comment()" class="add_comment_btn" type="submit">Submit Comment</button>
+    </div>
+  </div>
+</li>

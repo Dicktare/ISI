@@ -37,21 +37,13 @@ MongoClient.connect(url, function(err, db) {
     res.send('Server started');
   });
 
-  app.get('/rahan/:id', function(req,res){
-    console.log(req.params.id)
-    res.send("t;;sad");
-  });
-
   app.post('/notify_users/', function(req,res){
     console.log(req.body.name);
   });
 
   app.post('/login',function(req, res) {
-      console.log(req.body);
       var username = req.body.username;
       var passwd = req.body.password;
-
-      
 
         dbo.collection('Users').find({"username": username, "password": passwd}).toArray(function(err, result) {
           if (err) throw err;
@@ -61,20 +53,17 @@ MongoClient.connect(url, function(err, db) {
             res.status(401).send("Unauthorized ");
           }
         });
-     
+
   });
 
   app.get('/supervisors/get',function(req, res) {
-
       dbo.collection('Supervisors').find({}).toArray(function(err, result) {
         if (err) throw err;
           res.status(200).json(result);
       });
-   
   });
 
   app.get('/locations/get',function(req, res) {
-    
           dbo.collection('Supervisors').find({}).toArray(function(err, result) {
             if (err) throw err;
             var array_temp = [];
@@ -82,7 +71,7 @@ MongoClient.connect(url, function(err, db) {
               (accumulator, currentVal, index, array)=> array_temp.push(currentVal['name']),[]);
               res.status(200).json(array_temp);
           });
-       
   });
+
   app.listen(PORT);
 });

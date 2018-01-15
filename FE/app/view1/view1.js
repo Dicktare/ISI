@@ -9,11 +9,33 @@ angular.module('myApp.view1', ['ngRoute'])
   });
 }])
 
-.controller('View1Ctrl',function($scope, $http) {
+.controller('View1Ctrl',function($scope, $http,) {
 
   $scope.msg = "Genius";
   $scope.username;
   $scope.passwd;
+
+
+  (function(){
+    $http({
+      method: 'GET',
+      url: 'http://localhost:8080/locations/get'
+    }).then(function successCallback(response) {
+        $scope.locations = response.data;
+        console.log($scope.locations);
+      });
+  })();
+
+  $scope.refresh = function() {
+    location.reload();
+  }//refresh
+
+  $scope.add_comment = function() {
+    console.log('fuck the world');
+    console.log($scope.locSelected);
+    console.log($scope.comment);
+    console.log($scope.email);
+  }
 
   $scope.get_data = function() {
     $http({

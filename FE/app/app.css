@@ -11,10 +11,26 @@ li {
     float: left;
 }
 
+.errorMsg{
+  color:red;
+  margin-left: -100px;
+}
 .comment_select {
   color:black;
 }
 
+.infoMsg {
+  align:center;
+  color:yellow;
+  align-items: center;
+  width: 100%;
+}
+
+.userBar{
+  float:right;
+  padding-right: 15px;
+  padding-top: 5px;
+}
 .coment_input {
   color:black;
 }
@@ -79,7 +95,6 @@ input[type=text], input[type=password] {
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 10%;
 }
 
 .login_btn:hover {
@@ -88,6 +103,7 @@ input[type=text], input[type=password] {
 
 .comemnt_container{
   margin-left: 15px;
+  color: #00FF00;
 }
 .add_comment_btn:hover {
   opacity: 0.8;

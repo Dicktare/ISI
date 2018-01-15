@@ -2,27 +2,38 @@
 
 </style>
 
-<form>
-  <div class="imgcontainer">
-    <img src="login_image.svg" width="100px" height="100px"alt="Avatar" class="avatar">
-  </div>
+<div ng-hide="logged">
+  <form>
+    <div class="imgcontainer">
+      <img src="login_image.svg" width="100px" height="100px"alt="Avatar" class="avatar">
+    </div>
 
-  <div class="container">
-    <div>
-      <label><b>Username</b></label>
-      <input type="text" ng-model="username"  placeholder="Enter Username" required>
-    </div>
-    <div>
-      <label><b>Password</b></label>
-      <input type="password" ng-model="password"  placeholder="Enter Password" required>
-    </div>
-    <div class="footer">
+    <div class="container">
       <div>
-        <button ng-click="login()" class="login_btn" type="submit">Login</button>
+        <label><b>Username</b></label>
+        <input ng-mouseover = "resetErr()" type="text" ng-model="username"  placeholder="Enter Username" required>
       </div>
       <div>
-        <input type="checkbox" ng-model="saveLogin"  checked="checked"> Remember me
+        <label><b>Password</b></label>
+        <input  ng-mouseover = "resetErr()" type="password" ng-model="password"  placeholder="Enter Password" required>
+      </div>
+      <div class="footer">
+        <div>
+          <button ng-click="login()" class="login_btn" type="submit">Login</button>
+        </div>
+        <div>
+          <input type="checkbox" ng-model="saveLogin"  checked="checked"> Remember me
+        </div>
+      <div class="errorMsg" ng-if="errMsg">Login error! Please enter a valid user and password</div>
       </div>
     </div>
+  </form>
+</div>
+
+
+ <h1 align="center" style="color:#b2ff4f " ng-if="logged">
+  Already logged as {{user}}
+ </h1>
+  <div ng-if="logged" align="center">
+    <button ng-click="logout()">Logout</button>
   </div>
-</form>

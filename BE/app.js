@@ -82,7 +82,7 @@ MongoClient.connect(url, function(err, db) {
             array_incident.push(incident);
             var myquery = { name: req.body.location };
             var newvalues = {$set: {incidents: array_incident} };
-            console.log(array_incident);
+            
 
             dbo.collection("Supervisors").updateOne(myquery, newvalues, function(err, res) {
               if (err) throw err;

@@ -76,7 +76,7 @@ MongoClient.connect(url, function(err, db) {
             var incident = {
               id: array_incident.length + 1,
               reporter: result[0].firstName,
-              date: dateformat(new Date(), "dd-mm-yyyy, HH:MM:ss.l"),
+              date: dateformat(new Date(), "dd-mm-yyyy HH:MM:ss.l"),
               description: req.body.comment
             }
             array_incident.push(incident);

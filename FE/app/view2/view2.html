@@ -1,18 +1,53 @@
-<div class="comemnt_container">
-  <h2>Report a new event:</h2>
-  <div>
-   <h3>Location               Email</h3>
-   <select ng-model="locSelected" class="comment_select">
-     <option ng-repeat="l in locations">{{l.name}}</option>
-   </select>
-   <input ng-model="email" class="coment_input"></input>
-  </div>
-  <div>
-    <h3>Add comment here:</h3>
-    <textarea class="submit_text" rows="4" cols="50" ng-model="comment">
-    </textarea
-  </div>
-  <div>
-    <button ng-click="add_comment()" class="add_comment_btn" type="submit">Submit Comment</button>
+
+<div align="center">
+  <select ng-model="locSelected" class="comment_select">
+    <option ng-repeat="sup in supervisors">{{sup.name}}</option>
+  </select>
+  <button ng-click = get_Data()> Get Info </button>
+  <button ng-click = notify_users()> Notify Users </button>
+</div>
+
+
+<div class="container">
+  <div class="row rahansss">
+    <div ng-if="showData" class= "col">
+      <div class= "well">
+        <div class="well" ng-repeat="comm in incidents">
+          <div>Reported: {{comm.reporter}}</div>
+          <div> Date:{{comm.date | date:'MM/dd/yyyy @ h:mma'}} <br></div>
+          <div>Description: {{comm.description}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="well" ng-if="showData">
+        <div>
+          <h3> PH: {{supervizor.parameters.ph}}</h3>
+        </div>
+        <div>
+          <h3> Salinity: {{supervizor.parameters.salinity}}</h3>
+        </div>
+        <div>
+        <h3>  Turbidity: {{supervizor.parameters.turbidity}}</h3>
+        </div>
+        <div>
+        <h3>  Depth:{{supervizor.parameters.depth}} </h3>
+        </div>
+        <div>
+        <h3>  Blue Green Algae: {{supervizor.parameters.blueGreenAlgae}}</h3>
+        </div>
+        <div>
+        <h3>  Nitrate: {{supervizor.parameters.ph}}</h3>
+        </div>
+        <div>
+        <h3>  TDS: {{supervizor.parameters.TDS}}</h3>
+        </div>
+        <div>
+          <h3>TTS: {{supervizor.parameters.TTS}}</h3>
+        </div>
+      </div>
+      <!-- Data about the location -->
+
+    </div>
   </div>
 </div>
